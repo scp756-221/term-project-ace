@@ -1,4 +1,5 @@
 import requests
+
 class Playlist():
     """Python API for the music service.
 
@@ -37,4 +38,57 @@ class Playlist():
             self._url + p_id,
             headers={'Authorization': self._auth}
         )
+    def create(self , list_name, play_list=[]):
+        """Create an artist, song pair.
+
+        Parameters
+        ----------
+        artist: string
+            The artist performing song.
+        song: string
+            The name of the song.
+        orig_artist: string or None
+            The name of the original performer of this song.
+
+        Returns
+        -------
+        (number, string)
+            The number is the HTTP status code returned by Music.
+            The string is the UUID of this song in the music database.
+        """
+
+        payload = {'ListName': list_name,
+                   'PlayList': play_list}
+        
+        r = requests.post(
+            self._url,
+            json=payload,
+            headers={'Authorization': self._auth}
+        )
+        return r.status_code, r.json()['play_list_id']
+
+
+    def write_music_to_playlist(self, music_add , p_id):
+        """Write the original artist performing a song.
+
+        Parameters
+        ----------
+        m_id: string
+            The UUID of this song in the music database.
+
+        orig_artist: string
+            The original artist performing the song.
+
+        Returns
+        -------
+        number
+            The HTTP status code returned by the music service.
+        """
+        r = requests.put(
+            self._url + 'write_music_to_playlist/' + p_id,
+            json={'MusicAdd': music_add},
+            headers={'Authorization': self._auth}
+        )
+        return r.status_code
+
 
