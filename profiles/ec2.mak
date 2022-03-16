@@ -31,7 +31,7 @@ REGION=us-west-2
 #  2. aws ec2 describe-security-groups --output json | jq '.SecurityGroups[].GroupId'
 
 # Security group ID
-SGI_WFH=
+SGI_WFH=sg-0effdc2703e9acbc7
 
 # Optional for displaying a security group rule via the "sgr" target
 # ID for security group rule ID to be displayed in detail
@@ -44,9 +44,9 @@ SGRI_WFH=
 #  2. aws ec2 describe-key-pairs
 #
 # Name of EC2 key
-KEY=
+KEY= 732AWS
 # Path to file, including filename
-LKEY=
+LKEY= /home/hpa61/.ssh/732AWS.pem
 
 # End of configuration section
 
