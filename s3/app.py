@@ -53,7 +53,7 @@ def readiness():
     return Response("", status=200, mimetype="application/json")
 
 @bp.route('/<player_list_id>', methods=['GET'])
-def get_play_list(play_list_id):
+def get_play_list(playlist_id):
     headers = request.headers
     # check header here
     if 'Authorization' not in headers:
@@ -61,7 +61,7 @@ def get_play_list(play_list_id):
                         status=401,
                         mimetype='application/json')
 
-    payload = {"objtype": "playlist", "objkey": play_list_id}
+    payload = {"objtype": "playlist", "objkey": playlist_id}
     url = db['name'] + '/' + db['endpoint'][0]
     response = requests.get(
         url,
@@ -70,7 +70,7 @@ def get_play_list(play_list_id):
     return (response.json())
 
 @bp.route('/<player_list_id>', methods=['DELETE'])
-def delete_play_list(play_list_id):
+def delete_play_list(playlist_id):
     headers = request.headers
     # check header here
     if 'Authorization' not in headers:
@@ -80,7 +80,7 @@ def delete_play_list(play_list_id):
     url = db['name'] + '/' + db['endpoint'][2]
     response = requests.delete(
         url,
-        params={"objtype": "playlist", "objkey": play_list_id},
+        params={"objtype": "playlist", "objkey": playlist_id},
         headers={'Authorization': headers['Authorization']})
     return (response.json())
 # All database calls will have this prefix.  Prometheus metric
