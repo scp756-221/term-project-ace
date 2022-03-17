@@ -113,7 +113,7 @@ class Playlist():
             The string is the UUID of this song in the music database.
         """
         r = requests.put(
-            self._url + p_id, 
+            self._url + 'write_music_to_playlist/' + p_id,
             json={'ListName': list_name},
             headers={'Authorization': self._auth}
         )
