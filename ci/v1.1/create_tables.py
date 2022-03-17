@@ -87,4 +87,4 @@ def create_tables(url, region, access_key_id, secret_access_key, music, user):
     """
     mt.wait_until_exists()
     ut.wait_until_exists()
-    pl.wait_until.exisits()#added
+    pl.wait_until_exists()#added
