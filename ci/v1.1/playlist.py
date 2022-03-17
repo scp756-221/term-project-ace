@@ -38,6 +38,8 @@ class Playlist():
             self._url + p_id,
             headers={'Authorization': self._auth}
         )
+
+
     def create(self , list_name, play_list=[]):
         """Create an artist, song pair.
 
@@ -92,3 +94,31 @@ class Playlist():
         return r.status_code
 
 
+    def update_playlist_listname(self, p_id, list_name):
+        """Create an artist, song pair.
+
+        Parameters
+        ----------
+        artist: string
+            The artist performing song.
+        song: string
+            The name of the song.
+        orig_artist: string or None
+            The name of the original performer of this song.
+
+        Returns
+        -------
+        (number, string)
+            The number is the HTTP status code returned by Music.
+            The string is the UUID of this song in the music database.
+        """
+        r = requests.put(
+            self._url + p_id, 
+            json={'ListName': list_name},
+            headers={'Authorization': self._auth}
+        )
+
+        if r.status_code != 200:
+            return r.status_code, None
+
+        return r.status_code
