@@ -73,18 +73,18 @@ def create_tables(url, region, access_key_id, secret_access_key, music, user):
             "ReadCapacityUnits": 5, "WriteCapacityUnits": 5}
     )
 
-    pl = dynamodb.create_table(
-        TableName=playlist,
-        AttributeDefinitions=[{
-            "AttributeName": "play_list_id", "AttributeType": "L"}],
-        KeySchema=[{"AttributeName": "play_list_id", "KeyType": "HASH"}],
-        ProvisionedThroughput={
-            "ReadCapacityUnits": 5, "WriteCapacityUnits": 5}
-    )
+    # pl = dynamodb.create_table(
+    #     TableName=playlist,
+    #     AttributeDefinitions=[{
+    #         "AttributeName": "play_list_id", "AttributeType": "L"}],
+    #     KeySchema=[{"AttributeName": "play_list_id", "KeyType": "HASH"}],
+    #     ProvisionedThroughput={
+    #         "ReadCapacityUnits": 5, "WriteCapacityUnits": 5}
+    # )
     """
     The order in which we wait for the tables is irrelevant.  We can only
     proceed after both exist.
     """
     mt.wait_until_exists()
     ut.wait_until_exists()
-    pl.wait_until_exists()#added
+    # pl.wait_until_exists()

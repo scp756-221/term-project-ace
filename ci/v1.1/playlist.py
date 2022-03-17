@@ -1,5 +1,6 @@
 import requests
 
+
 class Playlist():
     """Python API for the music service.
 
@@ -32,15 +33,13 @@ class Playlist():
         plist = r.json()['Items'][0]
         return r.status_code, plist['ListName'], plist['PlayList']
 
-
     def delete(self, p_id):
         requests.delete(
             self._url + p_id,
             headers={'Authorization': self._auth}
         )
 
-
-    def create(self , list_name, play_list=[]):
+    def create(self, list_name, play_list=[]):
         """Create an artist, song pair.
 
         Parameters
@@ -61,7 +60,6 @@ class Playlist():
 
         payload = {'ListName': list_name,
                    'PlayList': play_list}
-        
         r = requests.post(
             self._url,
             json=payload,
@@ -69,8 +67,7 @@ class Playlist():
         )
         return r.status_code, r.json()['play_list_id']
 
-
-    def write_music_to_playlist(self, music_add , p_id):
+    def write_music_to_playlist(self, music_add, p_id):
         """Write the original artist performing a song.
 
         Parameters
@@ -92,7 +89,6 @@ class Playlist():
             headers={'Authorization': self._auth}
         )
         return r.status_code
-
 
     def update_playlist_listname(self, p_id, list_name):
         """Create an artist, song pair.
