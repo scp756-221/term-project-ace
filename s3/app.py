@@ -112,6 +112,52 @@ def update_playlist_listname(playlist_id):
     return (response.json())
 
 
+@bp.route('/', methods=['POST'])
+def create_play_list():
+    headers = request.headers
+    # check header here
+    if 'Authorization' not in headers:
+        return Response(json.dumps({"error": "missing auth"}),
+                        status=401,
+                        mimetype='application/json')
+    try:
+        content = request.get_json()
+        ListName = content['ListName']
+        PlayList = content['PlayList']
+    except Exception:
+        return json.dumps({"message": "error reading arguments"})
+    url = db['name'] + '/' + db['endpoint'][1]
+    payload = {"objtype": "playlist", "ListName": ListName, "PlayList": PlayList}
+    
+    response = requests.post(
+        url,
+        json=payload,
+        headers={'Authorization': headers['Authorization']})
+    return (response.json())
+
+# @bp.route('/write_music_to_playlist/<playlist_id>', methods=['PUT'])
+# def write_music_to_playlist(playlist_id):
+#     headers = request.headers
+#     # check header here
+#     if 'Authorization' not in headers:
+#         return Response(json.dumps({"error": "missing auth"}),
+#                         status=401,
+#                         mimetype='application/json')
+#     try:
+#         content = request.get_json()
+#         music_add = content['MusicAdd']
+
+#     except Exception:
+#         return json.dumps({"message": "error reading arguments"})
+#     payload = {"objtype": "playlist", "objkey": playlist_id}
+#     url = db['name'] + '/' + db['endpoint'][3]
+#     response = requests.put(
+#         url,
+#         params=payload,
+#         json={"OrigArtist": orig_artist},
+#         headers={'Authorization': headers['Authorization']})
+#     return (response.json())
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         logging.error("Usage: app.py <service-port>")
