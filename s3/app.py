@@ -29,8 +29,6 @@ app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 metrics.info('app_info', 'playlist process')
 
-bp = Blueprint('app', __name__)
-
 db = {
     "name": "http://cmpt756db:30002/api/v1/datastore",
     "endpoint": [
@@ -40,6 +38,8 @@ db = {
         "update"
     ]
 }
+bp = Blueprint('app', __name__)
+
 
 
 @bp.route('/health')
@@ -136,6 +136,7 @@ def create_play_list():
         headers={'Authorization': headers['Authorization']})
     return (response.json())
 
+
 # @bp.route('/write_music_to_playlist/<playlist_id>', methods=['PUT'])
 # def write_music_to_playlist(playlist_id):
 #     headers = request.headers
@@ -158,6 +159,10 @@ def create_play_list():
 #         json={"OrigArtist": orig_artist},
 #         headers={'Authorization': headers['Authorization']})
 #     return (response.json())
+# All database calls will have this prefix.  Prometheus metric
+# calls will not---they will have route '/metrics'.  This is
+# the conventional organization.
+app.register_blueprint(bp, url_prefix='/api/v1/playlist/')
 
 
 # All database calls will have this prefix.  Prometheus metric
