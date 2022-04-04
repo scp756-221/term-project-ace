@@ -13,6 +13,15 @@ import pytest
 
 # Local modules
 import playlist
+<<<<<<< Updated upstream
+=======
+import music
+
+
+@pytest.fixture
+def mserv(request, music_url, auth):
+    return music.Music(music_url, auth)
+>>>>>>> Stashed changes
 
 
 @pytest.fixture
@@ -23,8 +32,12 @@ def pserv(request, playlist_url, auth):
 @pytest.fixture
 def plist(request):
     # To Do
+<<<<<<< Updated upstream
     return None
 
+=======
+    return ('MyPlayList')
+>>>>>>> Stashed changes
 
 def test_create(pserv, plist):
     # Test creation of playlist

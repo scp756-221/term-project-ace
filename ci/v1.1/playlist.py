@@ -65,7 +65,7 @@ class Playlist():
             json=payload,
             headers={'Authorization': self._auth}
         )
-        return r.status_code, r.json()['play_list_id']
+        return r.status_code, r.json()['playlist_id']
 
     def write_music_to_playlist(self, music_add, p_id):
         """Write the original artist performing a song.

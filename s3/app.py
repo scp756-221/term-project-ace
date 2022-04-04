@@ -6,7 +6,7 @@ Sample application---playlist service.
 # Standard library modules
 import logging
 import sys
-import time
+# import time
 
 # Installed packages
 from flask import Blueprint
@@ -14,7 +14,7 @@ from flask import Flask
 from flask import request
 from flask import Response
 
-import jwt
+# import jwt
 
 from prometheus_flask_exporter import PrometheusMetrics
 
@@ -127,8 +127,10 @@ def create_play_list():
     except Exception:
         return json.dumps({"message": "error reading arguments"})
     url = db['name'] + '/' + db['endpoint'][1]
-    payload = {"objtype": "playlist", "ListName": ListName, "PlayList": PlayList}
-    
+    payload = {"objtype": "playlist",
+               "ListName": ListName,
+               "PlayList": PlayList}
+
     response = requests.post(
         url,
         json=payload,
