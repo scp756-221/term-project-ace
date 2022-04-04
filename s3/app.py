@@ -29,8 +29,6 @@ app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 metrics.info('app_info', 'playlist process')
 
-bp = Blueprint('app', __name__)
-
 db = {
     "name": "http://cmpt756db:30002/api/v1/datastore",
     "endpoint": [
@@ -40,6 +38,8 @@ db = {
         "update"
     ]
 }
+bp = Blueprint('app', __name__)
+
 
 @bp.route('/health')
 @metrics.do_not_track()
@@ -51,6 +51,7 @@ def health():
 @metrics.do_not_track()
 def readiness():
     return Response("", status=200, mimetype="application/json")
+
 
 @bp.route('/<playlist_id>', methods=['GET'])
 def get_play_list(playlist_id):
@@ -69,6 +70,7 @@ def get_play_list(playlist_id):
         headers={'Authorization': headers['Authorization']})
     return (response.json())
 
+
 @bp.route('/<playlist_id>', methods=['DELETE'])
 def delete_play_list(playlist_id):
     headers = request.headers
@@ -83,10 +85,6 @@ def delete_play_list(playlist_id):
         params={"objtype": "playlist", "objkey": playlist_id},
         headers={'Authorization': headers['Authorization']})
     return (response.json())
-# All database calls will have this prefix.  Prometheus metric
-# calls will not---they will have route '/metrics'.  This is
-# the conventional organization.
-app.register_blueprint(bp, url_prefix='/api/v1/playlist/')
 
 
 @bp.route('/<playlist_id>', methods=['PUT'])
@@ -135,6 +133,7 @@ def create_play_list():
         headers={'Authorization': headers['Authorization']})
     return (response.json())
 
+
 # @bp.route('/write_music_to_playlist/<playlist_id>', methods=['PUT'])
 # def write_music_to_playlist(playlist_id):
 #     headers = request.headers
@@ -157,6 +156,10 @@ def create_play_list():
 #         json={"OrigArtist": orig_artist},
 #         headers={'Authorization': headers['Authorization']})
 #     return (response.json())
+# All database calls will have this prefix.  Prometheus metric
+# calls will not---they will have route '/metrics'.  This is
+# the conventional organization.
+app.register_blueprint(bp, url_prefix='/api/v1/playlist/')
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
