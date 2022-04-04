@@ -12,76 +12,30 @@ defined in `conftest.py`.
 import pytest
 
 # Local modules
-import music
+import playlist
+# import music
 
 
 @pytest.fixture
-def mserv(request, music_url, auth):
-    return music.Music(music_url, auth)
+def pserv(request, playlist_url, auth):
+    return playlist.Playlist(playlist_url, auth)
 
 
 @pytest.fixture
-def song(request):
-    # Recorded 1956
-    return ('Elvis Presley', 'Hound Dog')
+def plist(request):
+    # To Do
+
+    return ('MyPlayList')
 
 
-def test_simple_run(mserv, song):
-    # Original recording, 1952
-    orig_artist = 'Big Mama Thornton'
-    trc, m_id = mserv.create(song[0], song[1], orig_artist)
+def test_simple_run(pserv, mserv):
+    # Test creation of playlist
+    song1 = ('k. d. lang',  'Hallelujah')
+    song2 = ('Kris',  'Bad girl')
+    trc1, m_id1 = mserv.create(song1[0], song1[1])
+    trc2, m_id2 = mserv.create(song2[0], song1[1])
+    # plist_id = "plist_1"
+    list_name = "mylist"
+    play_list = [m_id1, m_id2]
+    trc, p_id = pserv.create(list_name, play_list)
     assert trc == 200
-    trc, artist, title, oa = mserv.read(m_id)
-    assert (trc == 200 and artist == song[0] and title == song[1]
-            and oa == orig_artist)
-    mserv.delete(m_id)
-    # No status to check
-
-
-@pytest.fixture
-def song_oa(request):
-    # Recorded 1967
-    return ('Aretha Franklin', 'Respect')
-
-
-@pytest.fixture
-def m_id_oa(request, mserv, song_oa):
-    trc, m_id = mserv.create(song_oa[0], song_oa[1])
-    assert trc == 200
-    yield m_id
-    # Cleanup called after the test completes
-    mserv.delete(m_id)
-
-
-def test_orig_artist_oa(mserv, m_id_oa):
-    # Original recording, 1965
-    orig_artist = 'Otis Redding'
-    trc = mserv.write_orig_artist(m_id_oa, orig_artist)
-    assert trc == 200
-    trc, oa = mserv.read_orig_artist(m_id_oa)
-    assert trc == 200 and oa == orig_artist
-
-
-def test_full_cycle(mserv):
-    # `mserv` is an instance of the `Music` class
-
-    # Performance at 2010 Vancouver Winter Olympics
-    song = ('k. d. lang', 'Hallelujah')
-    # Soundtrack of first Shrek film (2001)
-    orig_artist = 'Rufus Wainwright'
-    # Original recording from album "Various Positions" (1984)
-    orig_orig_artist = 'Leonard Cohen'
-    trc, m_id = mserv.create(song[0], song[1], orig_artist)
-    assert trc == 200
-    trc, artist, title, oa = mserv.read(m_id)
-    assert (trc == 200 and artist == song[0] and title == song[1]
-            and oa == orig_artist)
-    trc = mserv.write_orig_artist(m_id, orig_orig_artist)
-    assert trc == 200
-    trc, oa = mserv.read_orig_artist(m_id)
-    assert (trc == 200 and oa == orig_orig_artist)
-    trc, artist, title, oa = mserv.read(m_id)
-    assert (trc == 200 and artist == song[0] and title == song[1]
-            and oa == orig_orig_artist)
-    # The last statement of the test
-    mserv.delete(m_id)
