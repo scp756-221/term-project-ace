@@ -13,7 +13,7 @@ import pytest
 
 # Local modules
 import playlist
-# import music
+import music
 
 
 @pytest.fixture
@@ -22,13 +22,18 @@ def pserv(request, playlist_url, auth):
 
 
 @pytest.fixture
+def mserv(request, music_url, auth):
+    return music.Music(music_url, auth)
+
+
+@pytest.fixture
 def plist(request):
     # To Do
-
     return ('MyPlayList')
 
 
 def test_simple_run(pserv, mserv):
+
     # Test creation of playlist
     song1 = ('k. d. lang',  'Hallelujah')
     song2 = ('Kris',  'Bad girl')
