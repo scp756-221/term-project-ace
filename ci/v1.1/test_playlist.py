@@ -32,7 +32,7 @@ def plist(request):
     return ('MyPlayList')
 
 
-def test_simple_run(pserv, mserv):
+def test_create_and_read(pserv, mserv):
 
     # Test creation of playlist
     song1 = ('k. d. lang',  'Hallelujah')
@@ -40,7 +40,9 @@ def test_simple_run(pserv, mserv):
     trc1, m_id1 = mserv.create(song1[0], song1[1])
     trc2, m_id2 = mserv.create(song2[0], song1[1])
     # plist_id = "plist_1"
-    list_name = "mylist"
+    list_name = "What is love"
     play_list = [m_id1, m_id2]
     trc, p_id = pserv.create(list_name, play_list)
     assert trc == 200
+    trc3, l_name, p_list = pserv.read(p_id)
+    assert trc3 == 200 and l_name == list_name and p_list == play_list
