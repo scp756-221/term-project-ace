@@ -66,6 +66,21 @@ def create_song(artist, title, uuid):
               "uuid": uuid})
     return (response.json())
 
+def create_playList(listName, listItem, uuid):
+    """
+    Create a song.
+    If a record already exists with the same artist and title,
+    the old UUID is replaced with this one.
+    """
+    url = db['name'] + '/load'
+    response = requests.post(
+        url,
+        auth=build_auth(),
+        json={"objtype": "playlist",
+              "ListName": listName,
+              "PlayList": listItem,
+              "uuid": uuid})
+    return (response.json())
 
 def check_resp(resp, key):
     if 'http_status_code' in resp:
@@ -106,4 +121,17 @@ if __name__ == '__main__':
             if resp is None or resp != uuid:
                 print('Error creating song {} {}, {}'.format(artist,
                                                              title,
+                                                             uuid))
+    
+    with open('{}/playlist/playlist.csv'.format(resource_dir), 'r') as inp:
+        rdr = csv.reader(inp)
+        next(rdr)  # Skip header
+        for listname, playlist, uuid in rdr:
+            resp = create_playList(listname.strip(),
+                               playlist.strip(),
+                               uuid.strip())
+            resp = check_resp(resp, 'playlist_id')
+            if resp is None or resp != uuid:
+                print('Error creating song {} {}, {}'.format(listname,
+                                                             playlist,
                                                              uuid))
