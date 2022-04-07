@@ -44,7 +44,6 @@
             "WriteCapacityUnits": "5"
           }
         }
-        
       },
       "tablePlaylist": {
         "Type": "AWS::DynamoDB::Table",
