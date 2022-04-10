@@ -17,13 +17,13 @@ import music
 
 
 @pytest.fixture
-def pserv(request, playlist_url, auth):
-    return playlist.Playlist(playlist_url, auth)
+def mserv(request, music_url, auth):
+    return music.Music(music_url, auth)
 
 
 @pytest.fixture
-def mserv(request, music_url, auth):
-    return music.Music(music_url, auth)
+def pserv(request, playlist_url, auth):
+    return playlist.Playlist(playlist_url, auth)
 
 
 @pytest.fixture
