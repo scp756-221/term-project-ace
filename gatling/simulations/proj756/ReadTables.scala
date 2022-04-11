@@ -58,7 +58,7 @@ object RPlaylist {
 
   val feeder = csv("playlist.csv").eager.random
 
-  val ruser = forever("i") {
+  val rplaylist = forever("i") {
     feed(feeder)
     .exec(http("RPlaylist ${i}")
       .get("/api/v1/playlist/${UUID}"))
@@ -103,7 +103,7 @@ object RMusicVarying {
 object RPlaylistVarying {
   val feeder = csv("playlist.csv").eager.circular
 
-  val rmusic = forever("i") {
+  val rplaylist = forever("i") {
     feed(feeder)
     .exec(http("RPlaylistVarying ${i}")
       .get("/api/v1/playlist/${UUID}"))
@@ -133,7 +133,7 @@ object RBoth {
       .get("/api/v1/music/${UUID}"))
       .pause(1);
     
-    feed(m_feeder)
+    feed(p_feeder)
     .exec(http("RPlaylist ${i}")
       .get("/api/v1/playlist/${UUID}"))
       .pause(1)
@@ -169,7 +169,7 @@ class ReadMusicSim extends ReadTablesSim {
 }
 
 class ReadPlaylistSim extends ReadTablesSim {
-  val scnReadMusic = scenario("ReadPlaylist")
+  val scnReadPlaylist = scenario("ReadPlaylist")
     .exec(RPlaylist.rplaylist)
 
   setUp(
@@ -190,7 +190,7 @@ class ReadBothVaryingSim extends ReadTablesSim {
     .exec(RUserVarying.ruser)
 
   val scnReadPV = scenario("ReadPlaylistVarying")
-    .exec(RUserVarying.rplaylist)
+    .exec(RPlaylistVarying.rplaylist)
 
   val users = Utility.envVarToInt("USERS", 10)
 
