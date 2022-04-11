@@ -54,6 +54,15 @@ def parse_args():
         help="Port number of music service."
         )
     argp.add_argument(
+        'playlist_address',
+        help="DNS name or IP address of playlist service."
+        )
+    argp.add_argument(
+        'playlist_port',
+        type=int,
+        help="Port number of playlist service."
+        )
+    argp.add_argument(
         'table_suffix',
         help="Suffix to add to table names (not including leading "
              "'-').  If suffix is 'scp756-2022', the music table "
@@ -64,6 +73,8 @@ def parse_args():
         args.user_address, args.user_port)
     args.music_url = "http://{}:{}/api/v1/music/".format(
         args.music_address, args.music_port)
+    args.playlist_url = "http://{}:{}/api/v1/playlist/".format(
+        args.playlist_address, args.playlist_port)
     return args
 
 
