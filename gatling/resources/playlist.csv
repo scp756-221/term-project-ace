@@ -1,3 +1,3 @@
 ListName,PlayList,UUID
-list_a,99,abc-bce123
-list_b,100,dfg-tfu456
+list_a,[6ecfafd0-8a35-4af6-a9e2-cbd79b3abeea;c2573193-f333-49e2-abec-182915747756;22e47f97-11ca-4c3c-8e77-f3068fddaf6e],abc-bce123
+list_b,[26e6462c-eacf-40bb-b4d0-d683966e2624;bb9e9105-6224-4a60-aabd-8d29cc4b1349;0894ddc7-0c84-4f13-a037-ddcaa1134ec8],dfg-tfu456
