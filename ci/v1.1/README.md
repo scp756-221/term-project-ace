@@ -6,3 +6,8 @@ This version of the CI test is to be used in Assignment&nbsp;7, working with int
 * Files prefixed `a7_other_dev_*` are for the "other_dev" branch.
 
 See the assignment description for further details.
+
+
+We further generated playlist.py to implement serval CRUD related functions in the new feature playlist.
+
+We also implemented a test_playlist.py to test the correctness for the new functions generated in the playlist.py.

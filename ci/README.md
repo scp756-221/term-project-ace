@@ -60,3 +60,5 @@ The following scripts are simple utilities that may prove useful:
 
 * `create-local-tables.sh`: Create the two DynamoDB tables in a local instance. This does not have to be done for a regular test, in which the Python code creates the tables.  But when running manual tests, you may use this script to create the tables.
 * `quick-test.sh`: A quick test of a running system, this creates a single song on the music table.  Because the music system accepts multiple "creates" of the same song (giving each instance a different UUID), you can call this multiple times without error.
+
+We generated the create-local-tables-tpl.sh configuration file to successfully use DynamoDB to persist data.
