@@ -63,7 +63,7 @@ def create_tables(url, region, access_key_id, secret_access_key, music, user,
             "AttributeName": "music_id", "AttributeType": "S"}],
         KeySchema=[{"AttributeName": "music_id", "KeyType": "HASH"}],
         ProvisionedThroughput={
-            "ReadCapacityUnits": 5, "WriteCapacityUnits": 5}
+            "ReadCapacityUnits": 50, "WriteCapacityUnits": 50}
     )
     ut = dynamodb.create_table(
         TableName=user,
@@ -71,7 +71,7 @@ def create_tables(url, region, access_key_id, secret_access_key, music, user,
             "AttributeName": "user_id", "AttributeType": "S"}],
         KeySchema=[{"AttributeName": "user_id", "KeyType": "HASH"}],
         ProvisionedThroughput={
-            "ReadCapacityUnits": 5, "WriteCapacityUnits": 5}
+            "ReadCapacityUnits": 50, "WriteCapacityUnits": 50}
     )
 
     pl = dynamodb.create_table(
@@ -80,7 +80,7 @@ def create_tables(url, region, access_key_id, secret_access_key, music, user,
             "AttributeName": "playlist_id", "AttributeType": "S"}],
         KeySchema=[{"AttributeName": "playlist_id", "KeyType": "HASH"}],
         ProvisionedThroughput={
-            "ReadCapacityUnits": 5, "WriteCapacityUnits": 5}
+            "ReadCapacityUnits": 50, "WriteCapacityUnits": 50}
     )
     """
     The order in which we wait for the tables is irrelevant.  We can only

@@ -137,6 +137,11 @@ object RBoth {
     .exec(http("RPlaylist ${i}")
       .get("/api/v1/playlist/${UUID}"))
       .pause(1)
+
+     feed(p_feeder)
+    .exec(http("RPlaylist ${i}")
+      .get("/api/v1/playlist/${UUID}"))
+      .pause(1)
   }
 
 }
